@@ -8,7 +8,7 @@ You can use whatever you would like to transmit a message with the update, a tel
 Just clone the script onto your machine using:
 
 ```
-git clone https://github.com/Wunders/urlcheck.git
+git clone https://github.com/Wunders/website-change-telegram.git
 ```
 
 ## Usage
