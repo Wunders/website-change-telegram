@@ -1,27 +1,29 @@
 # UrlChange
 # Checks for an updates to a given list of urls, and reports changes
 
-# Tested with Python version 3.7.6
+# Tested with Python version 3.7.10
 
 import requests
 import re
 import os
 import schedule
 import time
+from lxml import html
+from dotenv import load_dotenv
+
 
 # Send a message via a telegram bot
 def telegram_bot_sendtext(bot_message):
-    bot_token = 'YOUR_BOT_TOKEN'
-    bot_chatID = 'TELEGRAM_USER_CHAT_ID'
-    send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&parse_mode=Markdown&text=' + bot_message
+    # TO-DO: change to a post
+    send_text = 'https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage?chat_id=' + TELEGRAM_USER_CHAT_ID + '&parse_mode=Markdown&text=' + bot_message
 
     response = requests.get(send_text)
 
     return response.json()
 
 def report_change(url):
-    html_response = str(requests.get(url))
-    file_name = ''.join(x for x in url if x.isalpha()) + ".txt"
+    html_response = page_content(url)
+    file_name = './cache/' + ''.join(x for x in url if x.isalnum()) + ".txt"
 
     # Check if file exists that matches the page's content
     if os.path.exists(file_name):
@@ -53,9 +55,29 @@ def scan_url():
         report_change(url)
         time.sleep(1)
 
+def stringify_children(node):
+    from lxml.etree import tostring
+    from itertools import chain
+    parts = ([node.text] +
+            list(chain(*([c.text, tostring(c), c.tail] for c in node.getchildren()))) +
+            [node.tail])
+    # filter removes possible Nones in texts and tails
+    return "banana"
+    # return b" ".join(filter(None, parts))
+
+def page_content(url):
+    page = requests.get(url)
+    tree = html.fromstring(page.content)
+    content_element = tree.xpath('//*[@id="column-2"]')[0]
+    return stringify_children(content_element)
+
+load_dotenv()
+BOT_TOKEN = os.getenv('BOT_TOKEN')
+TELEGRAM_USER_CHAT_ID = os.getenv('TELEGRAM_USER_CHAT_ID')
+
 # Initalize script to run every 2 minutes
 scan_url()
-schedule.every(2).seconds.do(scan_url)
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+# schedule.every(5).minutes.do(scan_url)
+# while True:
+#     schedule.run_pending()
+#     time.sleep(1)

@@ -11,7 +11,14 @@ Just clone the script onto your machine using:
 git clone https://github.com/Wunders/website-change-telegram.git
 ```
 
+Install dependencies (create a virtual environment first if you need it):
+```
+pip install -r requirements.txt
+```
+
 ## Usage
+
+Create a `.env` file with your bot token and the chat id. 
 
 Make a `urls.txt` file in the same directory as the script. Paste in any urls you would like to check, line by line.
 
