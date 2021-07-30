@@ -11,9 +11,9 @@ import time
 from lxml import html
 from dotenv import load_dotenv
 
-
 # Send a message via a telegram bot
 def telegram_bot_sendtext(bot_message):
+    return
     # TO-DO: change to a post
     send_text = 'https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage?chat_id=' + TELEGRAM_USER_CHAT_ID + '&parse_mode=Markdown&text=' + bot_message
 
@@ -55,19 +55,27 @@ def scan_url():
         report_change(url)
         time.sleep(1)
 
+def to_str(data):
+    try:
+        return data.decode('UTF-8')
+    except (UnicodeDecodeError, AttributeError):
+        return data
+
+
 def stringify_children(node):
     from lxml.etree import tostring
     from itertools import chain
-    parts = ([node.text] +
+    parts_raw = ([node.text] +
             list(chain(*([c.text, tostring(c), c.tail] for c in node.getchildren()))) +
             [node.tail])
+    # We have byte strings in parts_raw
+    parts = map(to_str,parts_raw)
     # filter removes possible Nones in texts and tails
-    return "banana"
-    # return b" ".join(filter(None, parts))
+    return ''.join(filter(None, parts))
 
 def page_content(url):
     page = requests.get(url)
-    tree = html.fromstring(page.content)
+    tree = html.fromstring(page.text)
     content_element = tree.xpath('//*[@id="column-2"]')[0]
     return stringify_children(content_element)
 
