@@ -76,7 +76,7 @@ def stringify_children(node):
 def page_content(url):
     page = requests.get(url)
     tree = html.fromstring(page.text)
-    content_element = tree.xpath('//*[@id="column-2"]')[0]
+    content_element = tree.xpath('//div[@class="scrollingNotifications_New scrollbar"]')[0]
     return stringify_children(content_element)
 
 load_dotenv()
