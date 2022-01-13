@@ -15,7 +15,7 @@ Install dependencies (create a virtual environment first if you need it):
 ```
 pip install -r requirements.txt
 ```
-
+https://heroku.com/deploy?template=https://github.com/craziks-creator/website-change-telegram/
 ## Usage
 
 Create a `.env` file with your bot token and the chat id. 
