@@ -85,7 +85,7 @@ TELEGRAM_USER_CHAT_ID = os.getenv('TELEGRAM_USER_CHAT_ID')
 
 # Initalize script to run every 2 minutes
 scan_url()
-# schedule.every(5).minutes.do(scan_url)
-# while True:
-#     schedule.run_pending()
-#     time.sleep(1)
+  schedule.every(2).minutes.do(scan_url)
+  while True:
+      schedule.run_pending()
+      time.sleep(1)
