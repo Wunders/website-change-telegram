@@ -78,10 +78,6 @@ def page_content(url):
     content_element = tree.xpath('//div[@class="scrollingNotifications_New scrollbar"]')[0]
     return stringify_children(content_element)
 
-load_dotenv()
-BOT_TOKEN = os.getenv('BOT_TOKEN')
-TELEGRAM_USER_CHAT_ID = os.getenv('TELEGRAM_USER_CHAT_ID')
-
 # Initalize script to run every 2 minutes
 scan_url()
 schedule.every(2).seconds.do(scan_url)
