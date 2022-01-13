@@ -1,0 +1,2 @@
+"https://ssc.nic.in/Portal/LatestNews"
+"https://ssc.nic.in/Portal/LatestNews","//*[@class='eachNotification']"
