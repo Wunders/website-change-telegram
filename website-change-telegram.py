@@ -9,13 +9,12 @@ import os
 import schedule
 import time
 from lxml import html
-from dotenv import load_dotenv
 
 # Send a message via a telegram bot
 def telegram_bot_sendtext(bot_message):
-    return
-    # TO-DO: change to a post
-    send_text = 'https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage?chat_id=' + TELEGRAM_USER_CHAT_ID + '&parse_mode=Markdown&text=' + bot_message
+    bot_token = '1675779827:AAE9YVNAjz4A0LiA0TDaewTvYLLfWn9_HTo'
+    bot_chatID = '744730993'
+    send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&parse_mode=Markdown&text=' + bot_message
 
     response = requests.get(send_text)
 
