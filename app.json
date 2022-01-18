@@ -1,0 +1,30 @@
+{
+    "name": " FILTER BOT",
+    "description": "An unlimited filter bot using Mongo DB",
+    "logo": " ",
+    "keywords": [
+        "UNLIMITED",
+        "Filter",
+        "Telegram Bot"
+    ],
+    "website": " ",
+    "repository": "https://github.com/craziks-creator/telegram-Filter-Bot",
+    "success_url": " ",
+    "env": {
+        "WEBHOOK": {
+            "description": "No need to change this field!",
+            "value": "ANYTHING"
+        }
+    },
+    "buildpacks": [
+        {
+            "url": "heroku/python"
+        }
+    ],
+    "formation": {
+        "worker": {
+            "quantity": 1,
+            "size": "free"
+        }
+    }
+}
